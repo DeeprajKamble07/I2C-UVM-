@@ -11,8 +11,10 @@ import uvm_pkg::*;
 `include "monitor.sv"
 `include "agent.sv"
 `include "scoreboard.sv"
+`include "coverage.sv"
 `include "enivornment.sv"
 `include "test.sv"
+`include "assertion.sv"
 
 module tb;
   logic clk;
@@ -21,6 +23,8 @@ module tb;
   i2c_master dut1(.clk(intff.clk),.rst(intff.rst),.rw(intff.rw),.start(intff.start),.addr(intff.addr),.datain(intff.datain),.scl(intff.scl),.sda(intff.sda),.dataout(intff.dataout));
   
   i2c_slave #(.SLAVE_ADDR(7'h32)) dut2 (.scl(intff.scl),. sda(intff.sda));
+  
+  i2c_assertion dut3(.clk(intff.clk),.rst(intff.rst),.rw(intff.rw),.start(intff.start),.scl(intff.scl),.sda(intff.sda),.addr(intff.addr),.datain(intff.datain));
   
   initial begin
     clk=0;
@@ -40,3 +44,6 @@ module tb;
     $dumpvars();
   end
 endmodule
+
+
+
